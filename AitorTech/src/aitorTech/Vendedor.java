@@ -85,12 +85,12 @@ public class Vendedor extends Tienda {
             String[] opciones = { "1-Mostrar el inventario", "2-Añadir producto al inventario",
                     "3-Borrar producto del inventario", "4-Editar producto del inventario", "Salir" };
             // Mostramos un cuadro de dialogo para que el vendedor seleccione una opcion.
-            String input = (String) JOptionPane.showInputDialog(null, "Selecciona una opción:", "Menú Vendedor",
+            String seleccion = (String) JOptionPane.showInputDialog(null, "Selecciona una opción:", "Menú Vendedor",
                     JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 
-            if (input != null) {
+            if (seleccion != null) {
                 // Dependiendo de la opcion seleccionada, llamamos al método correspondiente.
-                switch (input) {
+                switch (seleccion) {
                 case "1-Mostrar el inventario":
                     inventario(); // Llamamos al metodo que muestra el inventario.
                     break;
@@ -119,23 +119,23 @@ public class Vendedor extends Tienda {
     public String inventario() {
         // Definimos las opciones que el vendedor puede seleccionar.
         String[] opciones = { "1. Laptops", "2. Sobremesa", "3. Workstation", "4. Smartphone", "5. Monitores" };
-        String input;
+        String seleccion;
 
         // Hacemos que el usuario seleccione una opcion hasta que elija una valida.
         do {
             // Mostramos un cuadro de dialogo para que el usuario seleccione una opcion.
-            input = (String) JOptionPane.showInputDialog(null, "Selecciona una opcion:", "Menu Vendedor",
+            seleccion = (String) JOptionPane.showInputDialog(null, "Selecciona una opcion:", "Menu Vendedor",
                     JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 
             // Verificamos si el usuario ha seleccionado una opcion.
-            if (input != null) {
+            if (seleccion != null) {
                 try (Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/tienda", "root",
                         "")) {
                     // Mensaje en consola indicando que se esta conectando a la base de datos.
                     System.out.println("Conectando a la base de datos");
 
                     // Dependiendo de la opcion seleccionada, mostramos los datos correspondientes.
-                    switch (input) {
+                    switch (seleccion) {
                     case "1. Laptops":
                         // Mostramos un cuadro de dialogo con los datos de los laptops.
                         JOptionPane.showMessageDialog(null, "Mostrando laptops" + verdatosLaptop(conexion));
@@ -165,8 +165,8 @@ public class Vendedor extends Tienda {
                 // Si no se selecciono ninguna opcion, mostramos un mensaje indicando que se debe seleccionar una.
                 JOptionPane.showMessageDialog(null, "Debe seleccionar una opcion");
             }
-        } while (input == null); // Repetimos el ciclo si no se selecciono ninguna opcion.
-        return input; // Devolvemos la opcion seleccionada.
+        } while (seleccion == null); // Repetimos el ciclo si no se selecciono ninguna opcion.
+        return seleccion; // Devolvemos la opcion seleccionada.
     }
 
     // Metodo para ver los portatiles en la base de datos
@@ -195,7 +195,7 @@ public class Vendedor extends Tienda {
         return datos.isEmpty() ? "No hay datos para mostrar" : datos;
     }
 
-    // Metodo para ver las computadoras de sobremesa en la base de datos
+    // Metodo para ver los sobremesa en la base de datos
     public static String verdatosSobremesa(Connection conexion) {
         String datos = "";
         // Consulta SQL para obtener los datos de las computadoras de sobremesa.
@@ -301,12 +301,12 @@ public class Vendedor extends Tienda {
         // Opciones para seleccionar el tipo de producto que se quiere eliminar
         String[] opciones = { "1. Laptops", "2. Sobremesa", "3. Workstation", "4. Smartphone", "5. Monitores" };
         // Mostramos un cuadro de dialogo para que el usuario elija una categoria
-        String input = (String) JOptionPane.showInputDialog(null, "Selecciona una categoria:", "Eliminar Producto",
+        String seleccion = (String) JOptionPane.showInputDialog(null, "Selecciona una categoria:", "Eliminar Producto",
                 JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 
-        if (input != null) {
+        if (seleccion != null) {
             // Obtenemos el nombre de la tabla correspondiente a la categoria seleccionada
-            String tabla = obtenerTabla(input);
+            String tabla = obtenerTabla(seleccion);
             if (tabla != null) {
                 // Pedimos al usuario que ingrese el ID del producto a eliminar
                 String idStr = JOptionPane.showInputDialog(null, "Ingresa el ID del producto a eliminar:");
@@ -347,12 +347,12 @@ public class Vendedor extends Tienda {
         // Opciones para seleccionar el tipo de producto que se quiere editar
         String[] opciones = { "1. Laptops", "2. Sobremesa", "3. Workstation", "4. Smartphone", "5. Monitores" };
         // Mostramos un cuadro de dialogo para que el usuario elija una categoria
-        String input = (String) JOptionPane.showInputDialog(null, "Selecciona una categoria:", "Editar Producto",
+        String seleccion = (String) JOptionPane.showInputDialog(null, "Selecciona una categoria:", "Editar Producto",
                 JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 
-        if (input != null) {
+        if (seleccion != null) {
             // Obtenemos el nombre de la tabla correspondiente a la opcion seleccionada
-            String tabla = obtenerTabla(input);
+            String tabla = obtenerTabla(seleccion);
             if (tabla != null) {
                 // Pedimos al usuario que ingrese el ID del producto a editar
                 String idStr = JOptionPane.showInputDialog(null, "Introduce el ID del producto a editar: ");
@@ -423,12 +423,12 @@ public class Vendedor extends Tienda {
         // Opciones para seleccionar el tipo de producto que se quiere crear
         String[] opciones = { "1. Laptops", "2. Sobremesa", "3. Workstation", "4. Smartphone", "5. Monitores" };
         // Mostramos un cuadro de dialogo para que el usuario elija una categoria
-        String input = (String) JOptionPane.showInputDialog(null, "Selecciona una categoria:", "Crear Producto",
+        String seleccion = (String) JOptionPane.showInputDialog(null, "Selecciona una categoria:", "Crear Producto",
                 JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 
-        if (input != null) {
+        if (seleccion != null) {
             // Obtenemos el nombre de la tabla correspondiente a la categoria seleccionada
-            String tabla = obtenerTabla(input);
+            String tabla = obtenerTabla(seleccion);
             if (tabla != null) {
                 // Creamos campos de texto para ingresar los datos del nuevo producto
                 JTextField modelo = new JTextField();

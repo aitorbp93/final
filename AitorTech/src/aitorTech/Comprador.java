@@ -71,7 +71,7 @@ public class Comprador extends Tienda {
 
 		return "Saliendo"; // Devolvemos "Saliendo" si se cancela la operacion
 	}
-
+//Metodo para validar las credenciales en la base de datos
 	public boolean validarCredenciales(String usuario, String contrasena) {
 		// Intentamos conectar a la base de datos y verificar las credenciales
 		try (Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/tienda", "root", "");
@@ -100,15 +100,15 @@ public class Comprador extends Tienda {
 
 		while (seguir) {
 			// Opciones que el comprador puede seleccionar en el menu
-			String[] options = { "1-Ver Productos", "2-Anadir producto al carrito", "3-Borrar producto del carrito",
+			String[] opcion = { "1-Ver Productos", "2-Anadir producto al carrito", "3-Borrar producto del carrito",
 					"4-Ver carrito", "5-Comprar", "6-Ver Compras", "Salir" };
 			// Mostramos un cuadro de dialogo para que el comprador seleccione una opcion
-			String input = (String) JOptionPane.showInputDialog(null, "Selecciona una opcion:", "Menu Comprador",
-					JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+			String seleccion = (String) JOptionPane.showInputDialog(null, "Selecciona una opcion:", "Menu Comprador",
+					JOptionPane.QUESTION_MESSAGE, null, opcion, opcion[0]);
 
-			if (input != null) {
+			if (seleccion != null) {
 				// Dependiendo de la opcion seleccionada, llamamos al metodo correspondiente
-				switch (input) {
+				switch (seleccion) {
 				case "1-Ver Productos":
 					// Mostramos los productos disponibles
 					inventario();
@@ -391,7 +391,7 @@ public class Comprador extends Tienda {
 			return;
 		}
 
-		// Convertimos el carrito a un arreglo de cadenas para mostrarlo en un cuadro de
+		// Convertimos el carrito a un arrays para mostrarlo en un cuadro de
 		// dialogo
 		String[] itemsCarrito = carrito.toArray(new String[0]);
 		// Mostramos un cuadro de dialogo para que el usuario elija un producto para
@@ -446,7 +446,7 @@ public class Comprador extends Tienda {
 
 			for (String item : carrito) {
 				// Extraemos el ID y la tabla de cada elemento en el carrito
-				String[] partes = item.split(" - ");
+				String[] partes = item.split(" - ");// .split() Divide la cadena en espacios
 				if (partes.length < 2) {
 					continue; // Evitamos el error si no se puede dividir correctamente
 				}
@@ -478,7 +478,7 @@ public class Comprador extends Tienda {
 					e.printStackTrace();
 				}
 			}
-			// Mostramos un mensaje de agradecimiento por la compra y vaciamos el carrito
+			// Mostramos un mensaje por la compra y vaciamos el carrito
 			JOptionPane.showMessageDialog(null, "Gracias por su compra");
 			carrito.clear(); // Vacia el carrito cuando se compra
 		} catch (SQLException e) {
